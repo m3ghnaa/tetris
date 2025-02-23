@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+</head>
+<body class="flex flex-col items-center min-h-screen bg-gray-900 text-white p-4">
+    <h1 class="text-3xl md:text-4xl font-bold text-yellow-400 mb-4">Tetris Arcade</h1>
+
+    <div class="w-full max-w-[300px] md:max-w-[400px]">
+        <div class="bg-gray-800 border-8 border-gray-700 rounded-xl shadow-2xl p-4">
+            <div class="flex justify-between gap-4 mb-4">
+                    
+                <div class="w-1/2 p-2 border-4 border-yellow-500 bg-gray-900 rounded-lg">
+                    <h2 class="text-sm text-yellow-300">Score</h2>
+                    <div id="score" class="text-2xl font-bold">0</div>
+                </div>
+
+                <div class="w-1/2 p-2 border-4 border-blue-500 bg-gray-900 rounded-lg">
+                    <h2 class="text-sm text-blue-300">Next</h2>
+                    <canvas id="next" class="w-full h-12 md:h-16 bg-gray-700"></canvas>
+                </div>
+            </div>
+
+        
+            <div class="relative w-full bg-black border-4 border-gray-700 rounded-lg"
+                 id="game-container">
+                <canvas id="tetris" class="w-full h-full"></canvas>
+            </div>
+
+         
+            <div class="sm:hidden grid grid-cols-3 gap-2 mt-4">
+                <button class="col-start-1 p-2 bg-gray-700 rounded" data-action="left">⬅️</button>
+                <button class="col-start-2 p-2 bg-gray-700 rounded" data-action="rotate">🔄</button>
+                <button class="col-start-3 p-2 bg-gray-700 rounded" data-action="right">➡️</button>
+                <button class="col-span-3 p-2 bg-gray-700 rounded" data-action="down">⬇️</button>
+            </div>
+        </div>
+    </div>
+
+    <p class="text-sm mt-4 text-gray-400">Use arrow keys or touch controls</p>
+    <script src="script.js"></script>
+</body>
+
+
+
+</html>
