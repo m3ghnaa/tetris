@@ -238,37 +238,35 @@ function playerRotate() {
 }
 
 function playerReset() {
-    if (!player.matrix) {
-        // First-time setup: Assign player the first piece
-        player.matrix = nextPiece.matrix;
-        player.color = nextPiece.color;
-    } else {
-        // Normal reset after a piece lands
-        player.matrix = nextPiece.matrix;
-        player.color = nextPiece.color;
-        player.position.y = 0;
-        player.position.x = Math.floor(arena[0].length / 2) - Math.floor(player.matrix[0].length / 2);
+    player.matrix = nextPiece.matrix;
+    player.color = nextPiece.color;
+    player.position.y = 0;
+    player.position.x = Math.floor(arena[0].length / 2) - 
+                      Math.floor(player.matrix[0].length / 2);
 
-        // Game Over Check
-        if (collide(arena, player)) {
-            gameOver = true;
-            showGameOver();
-            return;
-        }
-    }
-
-    // Generate new next piece BEFORE updating preview
+    // Generate new next piece
     nextPiece = {
         matrix: createPiece(),
         color: randomColor()
     };
 
-    drawNextPiece(); 
+    // Game Over Check
+    if (collide(arena, player)) {
+        gameOver = true;
+        showGameOver();
+        return;
+    }
+
+    drawNextPiece();
 }
 
 
 
 function update(time = 0) {
+    if (gameOver) return;
+    if (!bgMusic.paused) {
+        bgMusic.play();
+    }
     const deltaTime = time - lastTime;
     lastTime = time;
     dropCounter += deltaTime;
@@ -285,6 +283,15 @@ let gameOver = false;
 
 // Add new functions for game over handling
 function showGameOver() {
+    // Stop background music
+    const bgMusic = document.getElementById('bg-music');
+    bgMusic.pause();
+    
+    // Play game over sound
+    const gameOverSound = document.getElementById('game-over-sound');
+    gameOverSound.play();
+
+    // Create and show modal
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black/50 flex items-center justify-center';
     modal.innerHTML = `
@@ -299,6 +306,7 @@ function showGameOver() {
     `;
     document.body.appendChild(modal);
 }
+
 
 // Modify update function to stop the game
 function update(time = 0) {

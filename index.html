@@ -7,8 +7,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
 </head>
+
 <body class="flex flex-col items-center min-h-screen bg-gray-900 text-white p-4">
-    <h1 class="text-3xl md:text-4xl font-bold text-yellow-400 mb-4">Tetris Arcade</h1>
+    <audio id="bg-music" loop>
+        <source src="bg.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <audio id="game-over-sound">
+        <source src="game-over.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <h1 class="text-3xl md:text-4xl font-bold text-yellow-400 mt-4">Tetris Arcade</h1>
+    <button id="toggle-music" class="mt-4 p-2 bg-yellow-500 text-black rounded mb-2">🎵</button>
 
     <div class="w-full max-w-[300px] md:max-w-[400px]">
         <div class="bg-gray-800 border-8 border-gray-700 rounded-xl shadow-2xl p-4">
@@ -43,6 +55,27 @@
 
     <p class="text-sm mt-4 text-gray-400">Use arrow keys or touch controls</p>
     <script src="script.js"></script>
+
+    <script>
+    const music = document.getElementById("bg-music");
+        const toggleMusicBtn = document.getElementById("toggle-music");
+    
+        // Play music when the page loads
+        window.addEventListener("load", () => {
+            music.play().catch(error => console.log("Autoplay blocked:", error));
+        });
+    
+        // Toggle play/pause when button is clicked
+        toggleMusicBtn.addEventListener("click", () => {
+            if (music.paused) {
+                music.play();
+                toggleMusicBtn.textContent = "🔊 Stop Music";
+            } else {
+                music.pause();
+                toggleMusicBtn.textContent = "🎵 Play Music";
+            }
+        }); 
+    </script>
 </body>
 
 
